@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq6nnj1kchw6f"]
+[gd_scene load_steps=8 format=3 uid="uid://dq6nnj1kchw6f"]
 
 [ext_resource type="PackedScene" uid="uid://dhdeu0l3u6qri" path="res://player/player.tscn" id="1_80nbo"]
 [ext_resource type="Material" uid="uid://b42xmh24r56y0" path="res://level/platform.tres" id="1_feb5d"]
+[ext_resource type="Script" uid="uid://6kl4126c4qt4" path="res://game.gd" id="1_ryrav"]
 [ext_resource type="Material" uid="uid://7ottotfn0kn0" path="res://level/bridge.tres" id="2_fc0e3"]
-[ext_resource type="PackedScene" uid="uid://d1x08urxk3w1h" path="res://mob/mob.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://ljygwwn7cp7m" path="res://mob/spawner/mob_spawner_3d.tscn" id="5_7jktm"]
 
 [sub_resource type="Environment" id="Environment_80nbo"]
@@ -17,7 +17,15 @@ fog_light_color = Color(0.293222, 0.545856, 0.919551, 1)
 fog_height = -0.4
 fog_height_density = 0.2
 
+[sub_resource type="LabelSettings" id="LabelSettings_7jktm"]
+font_size = 80
+outline_size = 5
+
 [node name="Game" type="Node3D"]
+script = ExtResource("1_ryrav")
+
+[node name="MobSpawner3D" parent="." instance=ExtResource("5_7jktm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 8)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
@@ -95,8 +103,13 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_80nbo")
 
-[node name="Mob" parent="." instance=ExtResource("4_fc0e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 1, -2)
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 28.0
+offset_top = 28.0
+offset_right = 240.0
+offset_bottom = 105.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_7jktm")
 
-[node name="MobSpawner3D" parent="." instance=ExtResource("5_7jktm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 8)
+[connection signal="mob_spawned" from="MobSpawner3D" to="." method="_on_mob_spawner_3d_mob_spawned"]

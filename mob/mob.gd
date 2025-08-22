@@ -1,10 +1,13 @@
 extends RigidBody3D
 
+signal mob_died()
+
 var health = 3.0
 var speed = randf_range(2.0, 4.0)
 
 @onready var bat_model: Node3D = %bat_model
-
+@onready var hurt_sound: AudioStreamPlayer3D = %HurtSound
+@onready var ko_sound: AudioStreamPlayer3D = %KOSound
 @onready var player = get_node("/root/Game/Player")
 
 func _physics_process(delta: float) -> void:
@@ -19,7 +22,7 @@ func take_damage():
 		return
 	
 	bat_model.hurt()
-	
+	hurt_sound.play()	
 	health -= 1
 	
 	if health == 0:
@@ -30,6 +33,8 @@ func take_damage():
 		apply_central_impulse(direction * 10.0 + force)
 		%Timer.start()
 		lock_rotation = false
+		mob_died.emit()
+		ko_sound.play()
 	pass
 
 
