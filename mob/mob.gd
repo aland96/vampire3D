@@ -33,11 +33,11 @@ func take_damage():
 		apply_central_impulse(direction * 10.0 + force)
 		%Timer.start()
 		lock_rotation = false
-		mob_died.emit()
 		ko_sound.play()
 	pass
 
 
 func _on_timer_timeout() -> void:
+	mob_died.emit()
 	queue_free()
 	pass

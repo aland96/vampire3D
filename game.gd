@@ -7,6 +7,20 @@ func increase_score():
 	%Label.text = "Score: " + str(player_score)
 	pass
 
+func spawn_poof(mob_position):
+	const smoke_puff = preload("res://mob/smoke_puff/smoke_puff.tscn")
+	var poof = smoke_puff.instantiate()
+	add_child(poof)
+	poof.global_position = mob_position
+
 func _on_mob_spawner_3d_mob_spawned(mob: Variant) -> void:
-	mob.mob_died.connect(increase_score)
+	mob.mob_died.connect(func on_mob_died():
+		increase_score()
+		spawn_poof(mob.global_position)
+	)
+	spawn_poof(mob.global_position)
+	pass
+
+func _on_kill_plane_body_entered(body: Node3D) -> void:
+	get_tree().reload_current_scene.call_deferred()
 	pass

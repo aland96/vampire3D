@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-const SPEED = 5.5
+const SPEED = 6.5
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
