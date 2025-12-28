@@ -1,11 +1,22 @@
 extends Node3D
 
 var player_score = 0
+var time_left = 100
+
+func _ready() -> void:
+	%TimeLeft.text = "Time left: " + str(time_left)
 
 func increase_score():
 	player_score += 1
 	%Label.text = "Score: " + str(player_score)
 	pass
+
+func decrease_time():
+	time_left -= 1
+	%TimeLeft.text = "Time left: " + str(time_left)
+	if time_left == 0:
+		get_tree().paused = true
+		%WonLabel.visible = true
 
 func spawn_poof(mob_position):
 	const smoke_puff = preload("res://mob/smoke_puff/smoke_puff.tscn")

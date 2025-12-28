@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dq6nnj1kchw6f"]
+[gd_scene load_steps=12 format=3 uid="uid://dq6nnj1kchw6f"]
 
 [ext_resource type="PackedScene" uid="uid://dhdeu0l3u6qri" path="res://player/player.tscn" id="1_80nbo"]
 [ext_resource type="Material" uid="uid://b42xmh24r56y0" path="res://level/platform.tres" id="1_feb5d"]
@@ -22,6 +22,15 @@ fog_height_density = 0.2
 [sub_resource type="LabelSettings" id="LabelSettings_7jktm"]
 font_size = 80
 outline_size = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_ryrav"]
+font_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_eow3j"]
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_j5wjh"]
+font_size = 80
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_ryrav")
@@ -123,14 +132,48 @@ environment = SubResource("Environment_80nbo")
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
-offset_left = 28.0
-offset_top = 28.0
-offset_right = 240.0
-offset_bottom = 105.0
+offset_left = 505.0
+offset_top = 31.0
+offset_right = 806.0
+offset_bottom = 141.0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_7jktm")
+
+[node name="TimeLeft" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 857.0
+offset_top = 31.0
+offset_right = 1285.0
+offset_bottom = 141.0
+text = "Time left: 0"
+label_settings = SubResource("LabelSettings_ryrav")
+horizontal_alignment = 2
+
+[node name="WonLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 293.0
+offset_top = 341.0
+offset_right = 1084.0
+offset_bottom = 424.0
+size_flags_horizontal = 4
+text = "Congratulations, you won !!"
+label_settings = SubResource("LabelSettings_eow3j")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true
+
+[node name="HPLabel" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 31.0
+offset_right = 133.0
+offset_bottom = 141.0
+text = "HP"
+label_settings = SubResource("LabelSettings_j5wjh")
 
 [connection signal="mob_spawned" from="MobSpawner3D" to="." method="_on_mob_spawner_3d_mob_spawned"]
 [connection signal="mob_spawned" from="MobSpawner3D2" to="." method="_on_mob_spawner_3d_mob_spawned"]
 [connection signal="mob_spawned" from="MobSpawner3D3" to="." method="_on_mob_spawner_3d_mob_spawned"]
 [connection signal="body_entered" from="KillPlane" to="." method="_on_kill_plane_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="decrease_time"]

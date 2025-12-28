@@ -1,11 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhdeu0l3u6qri"]
+[gd_scene load_steps=8 format=3 uid="uid://dhdeu0l3u6qri"]
 
 [ext_resource type="PackedScene" uid="uid://b7vmm2o0u7rw5" path="res://player/simple_gun/gun_model.glb" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://6r1o1o0eeaxe" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://c0wrqmnmttjo2" path="res://player/reticle.png" id="3_g1dw6"]
 [ext_resource type="AudioStream" uid="uid://bgfelc0wot5j2" path="res://player/gun_shoot.wav" id="4_yw30f"]
+[ext_resource type="AudioStream" uid="uid://dh8ln14ngwryw" path="res://mob/mob_take_damage.wav" id="5_qjkh3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kqu6x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yw30f"]
+bg_color = Color(0.0779479, 0.712962, 0.416457, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_rkbax")
@@ -48,3 +52,24 @@ one_shot = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("4_yw30f")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = 144.0
+offset_top = 51.0
+offset_right = 486.0
+offset_bottom = 123.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_yw30f")
+value = 100.0
+show_percentage = false
+
+[node name="InvulnerableTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
+
+[node name="HurtSound" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+visible = false
+stream = ExtResource("5_qjkh3")
+pitch_scale = 2.0

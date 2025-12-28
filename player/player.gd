@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 const SPEED = 6.5
+var HEALTH = 100
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -29,6 +30,10 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0.0
 	
 	move_and_slide()
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider().name == 'Mob':
+			take_damage()
 	
 	if Input.is_action_pressed("shoot") and %Timer.is_stopped():
 		shoot_bullet()
@@ -43,3 +48,12 @@ func shoot_bullet():
 	%Timer.start()
 	%AudioStreamPlayer.play()
 	pass
+
+func take_damage():
+	if %InvulnerableTimer.is_stopped():
+		HEALTH -= 10
+		%HurtSound.play()
+		%ProgressBar.value = HEALTH
+		%InvulnerableTimer.start()
+		if HEALTH <= 0:
+			get_tree().reload_current_scene.call_deferred()
