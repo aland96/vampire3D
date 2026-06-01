@@ -22,6 +22,8 @@ func decrease_time():
 	if time_left == 0:
 		get_tree().paused = true
 		%WonLabel.visible = true
+		%VBoxContainer.visible = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func spawn_poof(mob_position):
 	const smoke_puff = preload("res://mob/smoke_puff/smoke_puff.tscn")

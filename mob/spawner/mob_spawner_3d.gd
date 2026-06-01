@@ -3,10 +3,13 @@ extends Node3D
 signal mob_spawned(mob)
 
 @export var mob_to_spawn: PackedScene = null
+@export var timeout: float = 5
 
 @onready var marker_3d: Marker3D = %Marker3D
 @onready var timer: Timer = %Timer
 
+func _ready() -> void:
+	timer.wait_time = timeout
 
 func _on_timer_timeout() -> void:
 	var new_mob = mob_to_spawn.instantiate()

@@ -71,9 +71,11 @@ script = ExtResource("1_ryrav")
 
 [node name="MobSpawner3D" parent="." instance=ExtResource("5_7jktm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 8)
+timeout = 4.0
 
 [node name="MobSpawner3D2" parent="." instance=ExtResource("5_7jktm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, -23)
+timeout = 2.5
 
 [node name="MobSpawner3D3" parent="." instance=ExtResource("5_7jktm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21)
@@ -188,9 +190,9 @@ horizontal_alignment = 2
 unique_name_in_owner = true
 visible = false
 offset_left = 293.0
-offset_top = 341.0
+offset_top = 182.0
 offset_right = 1084.0
-offset_bottom = 424.0
+offset_bottom = 265.0
 size_flags_horizontal = 4
 text = "Congratulations, you won !!"
 label_settings = SubResource("LabelSettings_eow3j")
@@ -217,9 +219,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -282.5
-offset_top = -174.0
+offset_top = -109.0
 offset_right = 282.5
-offset_bottom = 244.0
+offset_bottom = 309.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
