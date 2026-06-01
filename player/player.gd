@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+signal player_died()
+
 const SPEED = 6.5
 var HEALTH = 100
 
@@ -56,4 +58,4 @@ func take_damage():
 		%ProgressBar.value = HEALTH
 		%InvulnerableTimer.start()
 		if HEALTH <= 0:
-			get_tree().reload_current_scene.call_deferred()
+			player_died.emit()

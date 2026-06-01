@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2uq3yo1wbbjl"]
+[gd_scene load_steps=15 format=3 uid="uid://b2uq3yo1wbbjl"]
 
 [ext_resource type="Texture2D" uid="uid://caocgj8752ibl" path="res://cover-lg.webp" id="1_7vrkn"]
 [ext_resource type="Script" uid="uid://dohvbped6w58x" path="res://main_menu.gd" id="1_fu7sn"]
 [ext_resource type="FontFile" uid="uid://dvnwngs2kurkr" path="res://Curse of the Zombie.ttf" id="2_fu7sn"]
+[ext_resource type="Script" uid="uid://8qod7ua1ni28" path="res://audio_control.gd" id="4_glbon"]
+[ext_resource type="AudioStream" uid="uid://03trpttl0oln" path="res://Jammin Bread.mp3" id="4_jix8l"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jix8l"]
 texture = ExtResource("1_7vrkn")
@@ -42,6 +44,18 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 shadow_size = 10
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_glbon"]
+color = Color(1, 1, 1, 1)
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_nlkkf"]
+color = Color(0.299176, 0.472393, 0.818732, 1)
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_qe12f"]
+color = Color(0.299176, 0.472393, 0.818732, 1)
+thickness = 10
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -60,7 +74,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_jix8l")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MainMenu" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -75,7 +90,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
 
-[node name="Start" type="Button" parent="VBoxContainer"]
+[node name="Start" type="Button" parent="MainMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -89,7 +104,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_nlkkf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_qe12f")
 text = "Start game"
 
-[node name="Options" type="Button" parent="VBoxContainer"]
+[node name="Options" type="Button" parent="MainMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -103,7 +118,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_nlkkf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_8qtwp")
 text = "Options"
 
-[node name="Exit" type="Button" parent="VBoxContainer"]
+[node name="Exit" type="Button" parent="MainMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -135,6 +150,86 @@ text = "VAMPIRE 3D"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[node name="OptionsPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -423.5
+offset_top = -220.5
+offset_right = 423.5
+offset_bottom = 290.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="OptionsPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "Options"
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="OptionsPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -283.0
+offset_top = -112.0
+offset_right = 283.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nlkkf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8qtwp")
+text = "Back
+"
+
+[node name="AudioControl" type="HSlider" parent="OptionsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -248.0
+offset_top = -158.5
+offset_right = 248.0
+offset_bottom = -87.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_glbon")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_nlkkf")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_qe12f")
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("4_glbon")
+audio_bus_name = "Music"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_jix8l")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="MainMenu/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MainMenu/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MainMenu/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="OptionsPanel/Back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="OptionsPanel/AudioControl" to="OptionsPanel/AudioControl" method="_on_value_changed"]

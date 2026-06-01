@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dq6nnj1kchw6f"]
+[gd_scene load_steps=17 format=3 uid="uid://dq6nnj1kchw6f"]
 
 [ext_resource type="PackedScene" uid="uid://dhdeu0l3u6qri" path="res://player/player.tscn" id="1_80nbo"]
 [ext_resource type="Material" uid="uid://b42xmh24r56y0" path="res://level/platform.tres" id="1_feb5d"]
@@ -31,6 +31,40 @@ font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_j5wjh"]
 font_size = 80
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7jktm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ryrav"]
+bg_color = Color(0.82606, 0.82606, 0.82606, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eow3j"]
+bg_color = Color(0.633757, 0.633757, 0.633757, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j5wjh"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vef74"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 10
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_ryrav")
@@ -120,6 +154,7 @@ size = Vector3(3, 1, 12)
 material = ExtResource("2_fc0e3")
 
 [node name="Player" parent="." instance=ExtResource("1_80nbo")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 collision_layer = 3
 
@@ -172,8 +207,55 @@ offset_bottom = 141.0
 text = "HP"
 label_settings = SubResource("LabelSettings_j5wjh")
 
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -282.5
+offset_top = -174.0
+offset_right = 282.5
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Play again" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7jktm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ryrav")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eow3j")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j5wjh")
+text = "Play again"
+
+[node name="Back" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7jktm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ryrav")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eow3j")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vef74")
+text = "Back"
+
 [connection signal="mob_spawned" from="MobSpawner3D" to="." method="_on_mob_spawner_3d_mob_spawned"]
 [connection signal="mob_spawned" from="MobSpawner3D2" to="." method="_on_mob_spawner_3d_mob_spawned"]
 [connection signal="mob_spawned" from="MobSpawner3D3" to="." method="_on_mob_spawner_3d_mob_spawned"]
 [connection signal="body_entered" from="KillPlane" to="." method="_on_kill_plane_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="decrease_time"]
+[connection signal="pressed" from="VBoxContainer/Play again" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
